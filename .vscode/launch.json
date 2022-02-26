@@ -6,6 +6,7 @@
   "configurations": [
     {
       "name": "Launch development",
+      "cwd": "flutter_todos",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_development.dart",
@@ -18,17 +19,29 @@
     },
     {
       "name": "Launch staging",
+      "cwd": "flutter_todos",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_staging.dart",
-      "args": ["--flavor", "staging", "--target", "lib/main_staging.dart"]
+      "args": [
+        "--flavor",
+        "staging",
+        "--target",
+        "lib/main_staging.dart"
+      ]
     },
     {
       "name": "Launch production",
       "request": "launch",
+      "cwd": "flutter_todos",
       "type": "dart",
       "program": "lib/main_production.dart",
-      "args": ["--flavor", "production", "--target", "lib/main_production.dart"]
+      "args": [
+        "--flavor",
+        "production",
+        "--target",
+        "lib/main_production.dart"
+      ]
     }
   ]
 }
