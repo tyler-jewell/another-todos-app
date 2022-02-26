@@ -168,6 +168,12 @@ very_good create packages/local_storage_todos_api -t flutter_pkg --desc "A Flutt
 very_good create packages/todos_repository -t dart_pkg --desc "A repository that handles todo related requests."
 ```
 
+To run code generation:
+
+```sh
+flutter pub run build_runner build
+```
+
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
 [internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
