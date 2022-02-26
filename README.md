@@ -156,6 +156,18 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
 ### Tutorial setup
 
+Create app:
+
+```sh
+very_good create flutter_todos --desc "An example todos app that showcases bloc state management patterns."
+
+very_good create packages/todos_api -t dart_pkg --desc "The interface and models for an API providing access to todos."
+
+very_good create packages/local_storage_todos_api -t flutter_pkg --desc "A Flutter implementation of the TodosApi that uses local storage."
+
+very_good create packages/todos_repository -t dart_pkg --desc "A repository that handles todo related requests."
+```
+
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
 [internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
