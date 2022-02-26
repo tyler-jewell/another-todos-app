@@ -10,21 +10,21 @@ class FakeTodo extends Fake implements Todo {}
 
 void main() {
   final mockTodos = [
-    Todo(
+    const Todo(
       id: '1',
       title: 'title 1',
       description: 'description 1',
     ),
-    Todo(
+    const Todo(
       id: '2',
       title: 'title 2',
       description: 'description 2',
     ),
-    Todo(
+    const Todo(
       id: '3',
       title: 'title 3',
       description: 'description 3',
-      isCompleted: true,
+      isComplete: true,
     ),
   ];
 
@@ -38,9 +38,9 @@ void main() {
     setUp(() {
       todosRepository = MockTodosRepository();
       when(
-        () => todosRepository.getTodos(),
+        () => todosRepository.todos(),
       ).thenAnswer((_) => Stream.value(mockTodos));
-      when(() => todosRepository.saveTodo(any())).thenAnswer((_) async {});
+      when(() => todosRepository.updateTodo(any())).thenAnswer((_) async {});
     });
 
     TodosOverviewBloc buildBloc() {
@@ -64,7 +64,7 @@ void main() {
         build: buildBloc,
         act: (bloc) => bloc.add(const TodosOverviewSubscriptionRequested()),
         verify: (_) {
-          verify(() => todosRepository.getTodos()).called(1);
+          verify(() => todosRepository.todos).called(1);
         },
       );
 
@@ -89,7 +89,7 @@ void main() {
         'when repository getTodos stream emits error',
         setUp: () {
           when(
-            () => todosRepository.getTodos(),
+            () => todosRepository.todos(),
           ).thenAnswer((_) => Stream.error(Exception('oops')));
         },
         build: buildBloc,
@@ -107,28 +107,7 @@ void main() {
         build: buildBloc,
         act: (bloc) => bloc.add(TodosOverviewTodoSaved(mockTodos.first)),
         verify: (_) {
-          verify(() => todosRepository.saveTodo(mockTodos.first)).called(1);
-        },
-      );
-    });
-
-    group('TodosOverviewTodoCompletionToggled', () {
-      blocTest<TodosOverviewBloc, TodosOverviewState>(
-        'saves todo with isCompleted set to event isCompleted flag',
-        build: buildBloc,
-        seed: () => TodosOverviewState(todos: mockTodos),
-        act: (bloc) => bloc.add(
-          TodosOverviewTodoCompletionToggled(
-            todo: mockTodos.first,
-            isCompleted: true,
-          ),
-        ),
-        verify: (_) {
-          verify(
-            () => todosRepository.saveTodo(
-              mockTodos.first.copyWith(isCompleted: true),
-            ),
-          ).called(1);
+          verify(() => todosRepository.updateTodo(mockTodos.first)).called(1);
         },
       );
     });
@@ -146,7 +125,7 @@ void main() {
         act: (bloc) => bloc.add(TodosOverviewTodoDeleted(mockTodos.first)),
         verify: (_) {
           verify(
-            () => todosRepository.deleteTodo(mockTodos.first.id),
+            () => todosRepository.deleteTodo(mockTodos.first),
           ).called(1);
         },
       );
@@ -160,7 +139,7 @@ void main() {
         act: (bloc) => bloc.add(const TodosOverviewUndoDeletionRequested()),
         expect: () => const [TodosOverviewState()],
         verify: (_) {
-          verify(() => todosRepository.saveTodo(mockTodos.first)).called(1);
+          verify(() => todosRepository.updateTodo(mockTodos.first)).called(1);
         },
       );
     });
@@ -183,9 +162,7 @@ void main() {
         'toggles all todos to completed when some or none are uncompleted',
         setUp: () {
           when(
-            () => todosRepository.completeAll(
-              isCompleted: any(named: 'isCompleted'),
-            ),
+            () => todosRepository.completeAll(),
           ).thenAnswer((_) async => 0);
         },
         build: buildBloc,
@@ -193,7 +170,7 @@ void main() {
         act: (bloc) => bloc.add(const TodosOverviewToggleAllRequested()),
         verify: (_) {
           verify(
-            () => todosRepository.completeAll(isCompleted: true),
+            () => todosRepository.completeAll(),
           ).called(1);
         },
       );
@@ -202,21 +179,18 @@ void main() {
         'toggles all todos to uncompleted when all are completed',
         setUp: () {
           when(
-            () => todosRepository.completeAll(
-              isCompleted: any(named: 'isCompleted'),
-            ),
+            () => todosRepository.completeAll(),
           ).thenAnswer((_) async => 0);
         },
         build: buildBloc,
         seed: () => TodosOverviewState(
-          todos: mockTodos
-              .map((todo) => todo.copyWith(isCompleted: true))
-              .toList(),
+          todos:
+              mockTodos.map((todo) => todo.copyWith(isComplete: true)).toList(),
         ),
         act: (bloc) => bloc.add(const TodosOverviewToggleAllRequested()),
         verify: (_) {
           verify(
-            () => todosRepository.completeAll(isCompleted: false),
+            () => todosRepository.completeAll(),
           ).called(1);
         },
       );

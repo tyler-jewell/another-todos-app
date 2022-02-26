@@ -4,15 +4,17 @@ import 'package:todos_repository/todos_repository.dart';
 
 void main() {
   group('TodosViewFilter', () {
-    final completedTodo = Todo(
+    const completedTodo = Todo(
       id: '0',
       title: 'completed',
-      isCompleted: true,
+      isComplete: true,
+      description: '',
     );
 
-    final incompleteTodo = Todo(
+    const incompleteTodo = Todo(
       id: '1',
       title: 'incomplete',
+      description: '',
     );
 
     group('apply', () {

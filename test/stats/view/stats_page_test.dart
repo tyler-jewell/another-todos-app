@@ -17,7 +17,7 @@ void main() {
 
     setUp(() {
       todosRepository = MockTodosRepository();
-      when(todosRepository.getTodos).thenAnswer((_) => const Stream.empty());
+      when(todosRepository.todos).thenAnswer((_) => const Stream.empty());
     });
 
     testWidgets('renders StatsView', (tester) async {
@@ -37,7 +37,7 @@ void main() {
           todosRepository: todosRepository,
         );
 
-        verify(() => todosRepository.getTodos()).called(1);
+        verify(() => todosRepository.todos).called(1);
       },
     );
   });

@@ -1,38 +1,28 @@
-import 'package:todos_api/todos_api.dart';
+import 'dart:async';
 
-/// {@template todos_repository}
-/// A repository that handles todo related requests.
-/// {@endtemplate}
-class TodosRepository {
-  /// {@macro todos_repository}
-  const TodosRepository({
-    required TodosApi todosApi,
-  }) : _todosApi = todosApi;
+import 'package:todos_repository/todos_repository.dart';
 
-  final TodosApi _todosApi;
+/// Absract TodosRepository
+abstract class TodosRepository {
+  /// Add a new [Todo] to the repository
+  Future<void> addNewTodo(Todo todo);
 
-  /// Provides a [Stream] of all todos.
-  Stream<List<Todo>> getTodos() => _todosApi.getTodos();
+  /// Delete a [Todo] from the repository
+  Future<void> deleteTodo(Todo todo);
 
-  /// Saves a [todo].
-  ///
-  /// If a [todo] with the same id already exists, it will be replaced.
-  Future<void> saveTodo(Todo todo) => _todosApi.saveTodo(todo);
+  /// Get all [Todo]s from the repository
+  Stream<List<Todo>> todos();
 
-  /// Deletes the todo with the given id.
-  ///
-  /// If no todo with the given id exists, a [TodoNotFoundException] error is
-  /// thrown.
-  Future<void> deleteTodo(String id) => _todosApi.deleteTodo(id);
+  /// Update a [Todo] from the repository
+  Future<void> updateTodo(Todo todo);
 
   /// Deletes all completed todos.
   ///
   /// Returns the number of deleted todos.
-  Future<int> clearCompleted() => _todosApi.clearCompleted();
+  Future<int> clearCompleted();
 
-  /// Sets the `isCompleted` state of all todos to the given value.
+  /// Sets the `isComplete` state of all todos to the given value.
   ///
   /// Returns the number of updated todos.
-  Future<int> completeAll({required bool isCompleted}) =>
-      _todosApi.completeAll(isCompleted: isCompleted);
+  Future<int> completeAll();
 }

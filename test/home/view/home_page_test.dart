@@ -18,7 +18,7 @@ void main() {
   group('HomePage', () {
     setUp(() {
       todosRepository = MockTodosRepository();
-      when(todosRepository.getTodos).thenAnswer((_) => const Stream.empty());
+      when(todosRepository.todos).thenAnswer((_) => const Stream.empty());
     });
 
     testWidgets('renders HomeView', (tester) async {
@@ -47,7 +47,7 @@ void main() {
       when(() => cubit.state).thenReturn(const HomeState());
 
       todosRepository = MockTodosRepository();
-      when(todosRepository.getTodos).thenAnswer((_) => const Stream.empty());
+      when(todosRepository.todos).thenAnswer((_) => const Stream.empty());
     });
 
     Widget buildSubject() {

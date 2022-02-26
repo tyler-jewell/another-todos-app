@@ -7,7 +7,7 @@ import 'package:todos_repository/todos_repository.dart';
 class MockTodosRepository extends Mock implements TodosRepository {}
 
 void main() {
-  final todo = Todo(
+  const todo = Todo(
     id: '1',
     title: 'title 1',
     description: 'description 1',
@@ -18,7 +18,7 @@ void main() {
 
     setUp(() {
       todosRepository = MockTodosRepository();
-      when(todosRepository.getTodos).thenAnswer((_) => const Stream.empty());
+      when(todosRepository.todos).thenAnswer((_) => const Stream.empty());
     });
 
     StatsBloc buildBloc() => StatsBloc(todosRepository: todosRepository);
@@ -39,7 +39,7 @@ void main() {
         build: buildBloc,
         act: (bloc) => bloc.add(const StatsSubscriptionRequested()),
         verify: (bloc) {
-          verify(() => todosRepository.getTodos()).called(1);
+          verify(() => todosRepository.todos).called(1);
         },
       );
 
@@ -48,7 +48,7 @@ void main() {
         'when repository getTodos stream emits new todos',
         setUp: () {
           when(
-            todosRepository.getTodos,
+            todosRepository.todos,
           ).thenAnswer((_) => Stream.value([todo]));
         },
         build: buildBloc,
@@ -67,7 +67,7 @@ void main() {
         'when repository getTodos stream emits error',
         setUp: () {
           when(
-            () => todosRepository.getTodos(),
+            () => todosRepository.todos(),
           ).thenAnswer((_) => Stream.error(Exception('oops')));
         },
         build: buildBloc,

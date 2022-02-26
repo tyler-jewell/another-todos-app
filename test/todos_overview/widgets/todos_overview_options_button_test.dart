@@ -101,10 +101,20 @@ void main() {
           'when not all todos are marked completed',
           (tester) async {
             when(() => todosOverviewBloc.state).thenReturn(
-              TodosOverviewState(
+              const TodosOverviewState(
                 todos: [
-                  Todo(title: 'a', isCompleted: true),
-                  Todo(title: 'b', isCompleted: false),
+                  Todo(
+                    title: 'a',
+                    isComplete: true,
+                    description: '',
+                    id: '',
+                  ),
+                  Todo(
+                    title: 'b',
+                    isComplete: false,
+                    description: '',
+                    id: '',
+                  ),
                 ],
               ),
             );
@@ -125,10 +135,10 @@ void main() {
           'when all todos are marked completed',
           (tester) async {
             when(() => todosOverviewBloc.state).thenReturn(
-              TodosOverviewState(
+              const TodosOverviewState(
                 todos: [
-                  Todo(title: 'a', isCompleted: true),
-                  Todo(title: 'b', isCompleted: true),
+                  Todo(title: 'a', isComplete: true, description: '', id: ''),
+                  Todo(title: 'b', isComplete: true, description: '', id: ''),
                 ],
               ),
             );
@@ -150,10 +160,10 @@ void main() {
           'when tapped',
           (tester) async {
             when(() => todosOverviewBloc.state).thenReturn(
-              TodosOverviewState(
+              const TodosOverviewState(
                 todos: [
-                  Todo(title: 'a', isCompleted: true),
-                  Todo(title: 'b', isCompleted: false),
+                  Todo(title: 'a', isComplete: true, description: '', id: ''),
+                  Todo(title: 'b', isComplete: false, description: '', id: ''),
                 ],
               ),
             );
@@ -198,10 +208,10 @@ void main() {
           'when there are completed todos',
           (tester) async {
             when(() => todosOverviewBloc.state).thenReturn(
-              TodosOverviewState(
+              const TodosOverviewState(
                 todos: [
-                  Todo(title: 'a', isCompleted: true),
-                  Todo(title: 'b', isCompleted: false),
+                  Todo(title: 'a', isComplete: true, description: '', id: ''),
+                  Todo(title: 'b', isComplete: false, id: '', description: ''),
                 ],
               ),
             );
@@ -224,10 +234,10 @@ void main() {
           'when tapped',
           (tester) async {
             when(() => todosOverviewBloc.state).thenReturn(
-              TodosOverviewState(
+              const TodosOverviewState(
                 todos: [
-                  Todo(title: 'a', isCompleted: true),
-                  Todo(title: 'b', isCompleted: false),
+                  Todo(title: 'a', isComplete: true, id: '', description: ''),
+                  Todo(title: 'b', isComplete: false, id: '', description: ''),
                 ],
               ),
             );

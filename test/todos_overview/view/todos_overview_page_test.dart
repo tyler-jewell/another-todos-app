@@ -17,21 +17,21 @@ class MockTodosOverviewBloc
 
 void main() {
   final mockTodos = [
-    Todo(
+    const Todo(
       id: '1',
       title: 'title 1',
       description: 'description 1',
     ),
-    Todo(
+    const Todo(
       id: '2',
       title: 'title 2',
       description: 'description 2',
     ),
-    Todo(
+    const Todo(
       id: '3',
       title: 'title 3',
       description: 'description 3',
-      isCompleted: true,
+      isComplete: true,
     ),
   ];
 
@@ -40,7 +40,7 @@ void main() {
   group('TodosOverviewPage', () {
     setUp(() {
       todosRepository = MockTodosRepository();
-      when(todosRepository.getTodos).thenAnswer((_) => const Stream.empty());
+      when(todosRepository.todos).thenAnswer((_) => const Stream.empty());
     });
 
     testWidgets('renders TodosOverviewView', (tester) async {
@@ -60,7 +60,7 @@ void main() {
           todosRepository: todosRepository,
         );
 
-        verify(() => todosRepository.getTodos()).called(1);
+        verify(() => todosRepository.todos()).called(1);
       },
     );
   });
@@ -82,7 +82,7 @@ void main() {
       );
 
       todosRepository = MockTodosRepository();
-      when(todosRepository.getTodos).thenAnswer((_) => const Stream.empty());
+      when(todosRepository.todos).thenAnswer((_) => const Stream.empty());
     });
 
     Widget buildSubject() {
@@ -302,13 +302,13 @@ void main() {
 
           final todoListTile =
               tester.widget<TodoListTile>(find.byType(TodoListTile).first);
-          todoListTile.onToggleCompleted!(!todo.isCompleted);
+          todoListTile.onToggleCompleted!(!todo.isComplete);
 
           verify(
             () => todosOverviewBloc.add(
               TodosOverviewTodoCompletionToggled(
                 todo: todo,
-                isCompleted: !todo.isCompleted,
+                isComplete: !todo.isComplete,
               ),
             ),
           ).called(1);

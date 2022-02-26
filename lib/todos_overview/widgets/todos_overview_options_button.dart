@@ -15,7 +15,7 @@ class TodosOverviewOptionsButton extends StatelessWidget {
 
     final todos = context.select((TodosOverviewBloc bloc) => bloc.state.todos);
     final hasTodos = todos.isNotEmpty;
-    final completedTodosAmount = todos.where((todo) => todo.isCompleted).length;
+    final completedTodosAmount = todos.where((todo) => todo.isComplete).length;
 
     return PopupMenuButton<TodosOverviewOption>(
       shape: const ContinuousRectangleBorder(

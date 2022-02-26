@@ -15,12 +15,14 @@ class EditTodoState extends Equatable {
     this.initialTodo,
     this.title = '',
     this.description = '',
+    this.id = '',
   });
 
   final EditTodoStatus status;
   final Todo? initialTodo;
   final String title;
   final String description;
+  final String id;
 
   bool get isNewTodo => initialTodo == null;
 

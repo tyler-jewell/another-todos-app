@@ -36,7 +36,7 @@ class HomeView extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
-        // shape: const CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

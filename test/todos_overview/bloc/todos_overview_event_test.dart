@@ -46,36 +46,6 @@ void main() {
       });
     });
 
-    group('TodosOverviewTodoCompletionToggled', () {
-      test('supports value equality', () {
-        expect(
-          TodosOverviewTodoCompletionToggled(
-            todo: mockTodo,
-            isCompleted: true,
-          ),
-          equals(
-            TodosOverviewTodoCompletionToggled(
-              todo: mockTodo,
-              isCompleted: true,
-            ),
-          ),
-        );
-      });
-
-      test('props are correct', () {
-        expect(
-          TodosOverviewTodoCompletionToggled(
-            todo: mockTodo,
-            isCompleted: true,
-          ).props,
-          equals(<Object?>[
-            mockTodo, // todo
-            true, // isCompleted
-          ]),
-        );
-      });
-    });
-
     group('TodosOverviewTodoDeleted', () {
       test('supports value equality', () {
         expect(

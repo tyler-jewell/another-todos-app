@@ -56,7 +56,7 @@ void main() {
           todos: mockTodos,
           filter: TodosViewFilter.completedOnly,
         ).filteredTodos,
-        equals(mockTodos.where((todo) => todo.isCompleted).toList()),
+        equals(mockTodos.where((todo) => todo.isComplete).toList()),
       );
     });
 

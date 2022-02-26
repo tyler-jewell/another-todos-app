@@ -7,16 +7,16 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('TodoListTile', () {
-    final uncompletedTodo = Todo(
+    const uncompletedTodo = Todo(
       id: '1',
       title: 'title 1',
       description: 'description 1',
     );
-    final completedTodo = Todo(
+    const completedTodo = Todo(
       id: '1',
       title: 'title 1',
       description: 'description 1',
-      isCompleted: true,
+      isComplete: true,
     );
     final onToggleCompletedCalls = <bool>[];
     final dismissibleKey = Key(

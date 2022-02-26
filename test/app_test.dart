@@ -15,7 +15,7 @@ void main() {
   setUp(() {
     todosRepository = MockTodosRepository();
     when(
-      () => todosRepository.getTodos(),
+      () => todosRepository.todos(),
     ).thenAnswer((_) => const Stream.empty());
   });
 

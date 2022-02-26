@@ -12,7 +12,7 @@ class MockEditTodoBloc extends MockBloc<EditTodoEvent, EditTodoState>
     implements EditTodoBloc {}
 
 void main() {
-  final mockTodo = Todo(
+  const mockTodo = Todo(
     id: '1',
     title: 'title 1',
     description: 'description 1',
@@ -55,9 +55,10 @@ void main() {
       testWidgets('supports providing an initial todo', (tester) async {
         await tester.pumpRoute(
           EditTodoPage.route(
-            initialTodo: Todo(
+            initialTodo: const Todo(
               id: 'initial-id',
               title: 'initial',
+              description: '',
             ),
           ),
         );
@@ -134,8 +135,8 @@ void main() {
       'when an existing todo is being edited',
       (tester) async {
         when(() => editTodoBloc.state).thenReturn(
-          EditTodoState(
-            initialTodo: Todo(title: 'title'),
+          const EditTodoState(
+            initialTodo: Todo(title: 'title', description: '', id: ''),
           ),
         );
         await tester.pumpApp(buildSubject());

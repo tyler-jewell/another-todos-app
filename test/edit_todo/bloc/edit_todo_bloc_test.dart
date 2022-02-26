@@ -68,7 +68,8 @@ void main() {
         'attempts to save new todo to repository '
         'if no initial todo was provided',
         setUp: () {
-          when(() => todosRepository.saveTodo(any())).thenAnswer((_) async {});
+          when(() => todosRepository.updateTodo(any()))
+              .thenAnswer((_) async {});
         },
         build: buildBloc,
         seed: () => const EditTodoState(
@@ -90,7 +91,7 @@ void main() {
         ],
         verify: (bloc) {
           verify(
-            () => todosRepository.saveTodo(
+            () => todosRepository.updateTodo(
               any(
                 that: isA<Todo>()
                     .having((t) => t.title, 'title', equals('title'))
@@ -109,33 +110,37 @@ void main() {
         'attempts to save updated todo to repository '
         'if an initial todo was provided',
         setUp: () {
-          when(() => todosRepository.saveTodo(any())).thenAnswer((_) async {});
+          when(() => todosRepository.updateTodo(any()))
+              .thenAnswer((_) async {});
         },
         build: buildBloc,
-        seed: () => EditTodoState(
+        seed: () => const EditTodoState(
           initialTodo: Todo(
             id: 'initial-id',
             title: 'initial-title',
+            description: '',
           ),
           title: 'title',
           description: 'description',
         ),
         act: (bloc) => bloc.add(const EditTodoSubmitted()),
         expect: () => [
-          EditTodoState(
+          const EditTodoState(
             status: EditTodoStatus.loading,
             initialTodo: Todo(
               id: 'initial-id',
               title: 'initial-title',
+              description: '',
             ),
             title: 'title',
             description: 'description',
           ),
-          EditTodoState(
+          const EditTodoState(
             status: EditTodoStatus.success,
             initialTodo: Todo(
               id: 'initial-id',
               title: 'initial-title',
+              description: '',
             ),
             title: 'title',
             description: 'description',
@@ -143,7 +148,7 @@ void main() {
         ],
         verify: (bloc) {
           verify(
-            () => todosRepository.saveTodo(
+            () => todosRepository.updateTodo(
               any(
                 that: isA<Todo>()
                     .having((t) => t.id, 'id', equals('initial-id'))
@@ -162,7 +167,7 @@ void main() {
       blocTest<EditTodoBloc, EditTodoState>(
         'emits new state with error if save to repository fails',
         build: () {
-          when(() => todosRepository.saveTodo(any()))
+          when(() => todosRepository.updateTodo(any()))
               .thenThrow(Exception('oops'));
           return buildBloc();
         },

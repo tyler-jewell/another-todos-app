@@ -23,14 +23,14 @@ class TodosOverviewTodoSaved extends TodosOverviewEvent {
 class TodosOverviewTodoCompletionToggled extends TodosOverviewEvent {
   const TodosOverviewTodoCompletionToggled({
     required this.todo,
-    required this.isCompleted,
+    required this.isComplete,
   });
 
   final Todo todo;
-  final bool isCompleted;
+  final bool isComplete;
 
   @override
-  List<Object> get props => [todo, isCompleted];
+  List<Object> get props => [todo, isComplete];
 }
 
 class TodosOverviewTodoDeleted extends TodosOverviewEvent {

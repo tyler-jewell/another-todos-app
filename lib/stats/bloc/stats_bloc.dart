@@ -22,11 +22,11 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     emit(state.copyWith(status: StatsStatus.loading));
 
     await emit.forEach<List<Todo>>(
-      _todosRepository.getTodos(),
+      _todosRepository.todos(),
       onData: (todos) => state.copyWith(
         status: StatsStatus.success,
-        completedTodos: todos.where((todo) => todo.isCompleted).length,
-        activeTodos: todos.where((todo) => !todo.isCompleted).length,
+        completedTodos: todos.where((todo) => todo.isComplete).length,
+        activeTodos: todos.where((todo) => !todo.isComplete).length,
       ),
       onError: (_, __) => state.copyWith(status: StatsStatus.failure),
     );
